@@ -13,7 +13,18 @@ void print_in_middle(WINDOW* win, int starty, int startx, int width, char* strin
 
 int main()
 {
-    render_gui();
+    setlocale(LC_CTYPE, "");
+    initscr();
+    start_color();
+    use_default_colors();
+    scrollok(stdscr, FALSE);
+    cbreak();
+    noecho();
+    keypad(stdscr, TRUE);
+    init_pair(1, COLOR_BLACK, COLOR_CYAN);
+    init_pair(2, COLOR_WHITE, COLOR_BLACK);
+    init_pair(3, COLOR_WHITE, COLOR_BLUE);
+    render_main_window_gui();
     return 0;
 }
 
