@@ -1,0 +1,10 @@
+.
+./Makefile
+./main.c
+./screen.h
+./screen.c
+./config.h
+./test.c
+./main
+./test
+./temp.content
