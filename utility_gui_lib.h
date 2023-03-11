@@ -1,14 +1,12 @@
-#ifndef SCREEN_H_
-#define SCREEN_H_
+#ifndef UTILITY_GUI_LIB_H
+#define UTILITY_GUI_LIB_H
+#ifndef _DEFAULT_SOURCE
 #define _DEFAULT_SOURCE
-#include <limits.h>
+#endif
 #include <ncurses.h>
-#include <form.h>
 #include <string.h>
-#include <locale.h>
+#include <linux/limits.h>
 #include "config.h"
-#include "find_executor.h"
-
 
 #define ARRAY_SIZE(a) (sizeof(a) / sizeof(a[0]))
 #define ENTER_KEY 10
@@ -21,9 +19,7 @@ typedef struct screen_size {
 typedef struct toolbar {
     const char* name;
     const char* key_name;
-    control_key key;
 }toolbar;
-
 
 typedef char buf_t[PATH_MAX];
 typedef void (*render_routes)();
@@ -34,11 +30,4 @@ typedef struct key_handler {
 }key_handler;
 
 void render_key_map();
-void render_main_window();
-void render_main_window_gui();
-void render_search_bar();
-void main_window_gui_init();
-void form_events_handler(FORM* form, int ch);
-void on_submit_handler();
-void refresher_handler();
 #endif

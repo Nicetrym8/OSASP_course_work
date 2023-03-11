@@ -1,7 +1,9 @@
 #ifndef FIND_EXECUTOR_H_
 #define FIND_EXECUTOR_H_
+#ifndef _DEFAULT_SOURCE
 #define _DEFAULT_SOURCE
-#include <limits.h>
+#endif
+#include <linux/limits.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>

@@ -1,0 +1,17 @@
+{
+    "files.associations": {
+        "main_screen.h": "c",
+        "random": "cpp",
+        "utility_lib.h": "c",
+        "find_executor.h": "c",
+        "utility_gui_lib.h": "c",
+        "ncurses.h": "c",
+        "string.h": "c",
+        "*.ipp": "c",
+        "string_view": "c",
+        "config.h": "c",
+        "limits.h": "c",
+        "form.h": "c",
+        "settings.h": "c"
+    }
+}
