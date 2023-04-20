@@ -3,7 +3,7 @@
 extern int ch;
 extern screen_size scr_size;
 extern bool exit_flag;
-static WINDOW* box_win = NULL;
+static WINDOW *box_win = NULL;
 static void render_about_window();
 static void on_about_resize_handler();
 static void on_about_exit_handler();
@@ -47,7 +47,7 @@ static void on_about_resize_handler() {
     about_refresher_handler();
 }
 static void render_about_window() {
-    WINDOW* description_win = newwin(scr_size.max_y - 5, 3 * scr_size.max_x / 4, 2, scr_size.max_x / 8);
+    WINDOW *description_win = newwin(scr_size.max_y - 5, 3 * scr_size.max_x / 4, 2, scr_size.max_x / 8);
     if (box_win == NULL)
         box_win = newwin(scr_size.max_y - 1, scr_size.max_x, 0, 0);
     keypad(box_win, TRUE);
