@@ -25,5 +25,4 @@ clean:
 	 cd $(PARSER_PATH) && $(MAKE) clean
 	-rm -f main parser *.o 
 pack: clean
-	chmod 666 ./*
 	pwd | xargs basename | xargs -I{} tar -czvf ../Суязов\ Г.А.\ {}.tar.gz ../{} --transform 's,^,Суязов Г.А./,'
