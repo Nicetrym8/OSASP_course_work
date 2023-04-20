@@ -1,0 +1,27 @@
+
+Project development status:
+
+                            1. GUI utility library  [+]
+                            2. GUI [+]
+                            3. Ncurses memory leaks workaround [+]
+                            4. Process executor [+]
+                            5. Lexer-toknizer [+]
+                            6. GUI form handlers [+]
+                            7. GUI checkboxes integrations [-]
+
+Toolchain: gcc, ncurses, flex, GNU Make,
+Is building: true
+Is complete: false
+
+01.04 TODO:
+        Process exutor: Integrate with Lexer. +
+        Lexer: Handle some cornercases. +
+        GUI: Handle forms value and integrate with executor. +
+01.05 TODO:
+        Description +-
+        Recursive make +
+        Building into separate directory -
+        Reformat project structure +-
+        GUI: Handle checkboxes values, or scrap this idea. -
+
+
