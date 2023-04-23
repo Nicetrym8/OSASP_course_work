@@ -5,7 +5,7 @@
 #include <form.h>
 #include <locale.h>
 #include "../config.h"
-#include "../executor/find_executor.h"
+#include "../executor/executor.h"
 #include "about.h"
 
 void render_main_window_gui();

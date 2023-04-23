@@ -1,5 +1,5 @@
-#ifndef FIND_EXECUTOR_H
-#define FIND_EXECUTOR_H
+#ifndef EXECUTOR_H
+#define EXECUTOR_H
 #ifndef _DEFAULT_SOURCE
 #define _DEFAULT_SOURCE
 #endif
@@ -7,15 +7,14 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include <sys/stat.h>
+#include <stdbool.h>
 #include "../utility/utility.h"
 #include "../config.h"
-#include <ctype.h>
 #include <errno.h>
 
 
 
-static const char* const flag_str_name[] = {
+static const char *const flag_str_name[] = {
     "-name",
     "-group",
     "-path",
@@ -39,11 +38,19 @@ typedef enum PARAMETR {
     PARAMETERS_END,
 } PARAMETR;
 typedef enum CHECKBOXES {
-    TYPE,
+    TYPE_D,
+    TYPE_F,
+    TYPE_L,
     CHECKBOXES_END,
 } CHECKBOXES;
 
-static const char* const tokens[] = {
+static const char *const checkboxes_tokens[] = {
+    "d",
+    "f",
+    "l",
+};
+
+static const char *const tokens[] = {
     "{name}",
     "{group}",
     "{path}",
@@ -56,11 +63,11 @@ static const char* const tokens[] = {
 #define get_index_by_param(__X) __X-1
 #define get_str_opt_by_param(__X) flag_str_name[get_index_by_param(__X)]
 #define PARAM_QUANTITY PARAMETERS_END-1
-#define CHECKBOXES_QUANTITY CHECKBOXES_END - 1
+#define CHECKBOXES_QUANTITY CHECKBOXES_END
 
 typedef struct parametr {
     PARAMETR flag;
-    char* expr;
+    char *expr;
 }parametr;
 typedef struct control_struct {
     parametr options[PARAM_QUANTITY];
@@ -69,26 +76,14 @@ typedef struct control_struct {
 void write_settings();
 void read_settings();
 
-/**
- * @brief Установить выбранный флаг параметров
- *
- * @param flag флаг для установки
- * @param expr аргумент параметра
- */
-void set_flag(PARAMETR flag, char* restrict expr);
-/**
- * @brief Сбросить флаг параметра
- *
- * @param flag флаг для сброса
- */
-void clear_flag(PARAMETR flag);
+
 /**
  * @brief Создать строку вызова find
  *
  * @param buf: выходной буфер
  * @param path: путь для find
  */
-void create_exec_str(char* restrict buf, char* restrict path, char* restrict query);
+void create_exec_str(char *restrict buf, char *restrict path, char *restrict query);
 /**
  * @brief Получить результирующий файл
  * @param path: путь для find
@@ -96,5 +91,5 @@ void create_exec_str(char* restrict buf, char* restrict path, char* restrict que
  * @note Закрытие файла на пользователе.
  *
  */
-FILE* get_query_result_file(char* restrict path);
+FILE *get_query_result_file(char *restrict path);
 #endif

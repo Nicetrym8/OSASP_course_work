@@ -5,9 +5,10 @@ extern int ch;
 extern screen_size scr_size;
 extern bool exit_flag;
 extern char preferences[PARAM_QUANTITY][PATH_MAX];
+extern bool checkbox[CHECKBOXES_QUANTITY];
 
-static WINDOW* settings_form_win = NULL;
-static FORM* settings_form = NULL;
+static WINDOW *settings_form_win = NULL;
+static FORM *settings_form = NULL;
 static size_t current_setting = 0;
 static screen_size prev_size;
 
@@ -26,18 +27,18 @@ static void on_settings_scroll_right();
 static void on_settings_scroll_left();
 typedef struct buffer_settings {
     const PARAMETR flag;
-    const char* ui_name;
-    char* field_buffer;
+    const char *ui_name;
+    char *field_buffer;
 }buffer_settings;
 typedef struct buffer_checkbox {
-    const PARAMETR flag;
-    const char* ui_name;
-    bool checked;
+    const CHECKBOXES flag;
+    const char *ui_name;
+    bool *checked;
 }buffer_checkbox;
 static buffer_checkbox checkboxes[] = {
-    {TYPE,FILE_TYPE_GUI,FALSE},
-    {TYPE,DIR_TYPE_GUI,FALSE},
-    {TYPE,SYMLINK_TYPE_GUI,FALSE},
+    {TYPE_F,FILE_TYPE_GUI,&checkbox[TYPE_F]},
+    {TYPE_D,DIR_TYPE_GUI,&checkbox[TYPE_D]},
+    {TYPE_L,SYMLINK_TYPE_GUI,&checkbox[TYPE_L]},
 };
 static buffer_settings fields_buffer[] = {
    {NAME,NAME_GUI,preferences[get_index_by_param(NAME)]},
@@ -48,7 +49,7 @@ static buffer_settings fields_buffer[] = {
    {SIZE,SIZE_GUI,preferences[get_index_by_param(SIZE)]},
    {QUERY_FORMAT,QUERY_STRING_GUI,preferences[get_index_by_param(QUERY_FORMAT)]},
 };
-static FIELD* settings_field[ARRAY_SIZE(fields_buffer) + 1];
+static FIELD *settings_field[ARRAY_SIZE(fields_buffer) + 1];
 static const key_handler SETTINGS_CONTROL_KEYS_HANDLERS[] = {
     {KEY_RESIZE, on_settings_resize_handler},
     {KEY_F(3), on_settings_exit_handler},
@@ -115,7 +116,7 @@ static void on_about_handler() {
 }
 static void on_checkbox_handler() {
     if (current_setting > ARRAY_SIZE(settings_field) - 2) {
-        checkboxes[current_setting - ARRAY_SIZE(settings_field) + 1].checked = !(checkboxes[current_setting - ARRAY_SIZE(settings_field) + 1].checked);
+        *(checkboxes[current_setting - ARRAY_SIZE(settings_field) + 1].checked) = !(*(checkboxes[current_setting - ARRAY_SIZE(settings_field) + 1].checked));
         render_settings();
     }
 }
@@ -147,7 +148,7 @@ static void settings_refresher_handler() {
 }
 static void render_settings() {
 
-    static WINDOW* box_win = NULL;
+    static WINDOW *box_win = NULL;
     int rows, cols;
 
 
@@ -187,7 +188,7 @@ static void render_settings() {
     for (size_t i = 0;i < ARRAY_SIZE(checkboxes);i++) {
         if (current_setting == ARRAY_SIZE(settings_field) - 1 + i)
             wattron(settings_form_win, COLOR_PAIR(1));
-        mvwprintw(settings_form_win, i + ARRAY_SIZE(settings_field), 1, "%s %s", checkboxes[i].checked ? "[x]" : "[ ]", checkboxes[i].ui_name);
+        mvwprintw(settings_form_win, i + ARRAY_SIZE(settings_field), 1, "%s %s", *(checkboxes[i].checked) ? "[x]" : "[ ]", checkboxes[i].ui_name);
         wattroff(settings_form_win, COLOR_PAIR(1));
     }
 
