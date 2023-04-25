@@ -25,5 +25,5 @@ clean:
 	 cd $(PARSER_PATH) && $(MAKE) clean
 	 -cd ./build && rm -f *
 pack: clean
-	rmdir -p ./build
+	-rmdir -p build
 	pwd | xargs basename | xargs -I{} tar -czvf ../Суязов\ Г.А.\ {}.tar.gz ../{} --transform 's,^,Суязов Г.А./,'

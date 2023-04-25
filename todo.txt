@@ -7,21 +7,22 @@ Project development status:
                             4. Process executor [+]
                             5. Lexer-toknizer [+]
                             6. GUI form handlers [+]
-                            7. GUI checkboxes integrations [-]
+                            7. GUI checkboxes integrations [+]
 
 Toolchain: gcc, ncurses, flex, GNU Make,
 Is building: true
-Is complete: false
+Is complete: true
 
 01.04 TODO:
         Process exutor: Integrate with Lexer. +
         Lexer: Handle some cornercases. +
         GUI: Handle forms value and integrate with executor. +
 01.05 TODO:
-        Description +-
+        Description +
         Recursive make +
-        Building into separate directory -
-        Reformat project structure +-
-        GUI: Handle checkboxes values, or scrap this idea. -
-
+        Building into separate directory +
+        Reformat project structure +
+        GUI: Handle checkboxes values, or scrap this idea. +
+25.05 TODO:
+        Description, paperwork and figures +-
 
