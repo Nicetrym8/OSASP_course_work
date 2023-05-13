@@ -66,13 +66,13 @@ void create_exec_str(char *restrict buf, char *restrict path, char *restrict que
 
 }
 FILE *get_query_result_file(char *restrict path) {
-    static char command_buffer[PATH_MAX] = "";
-    static char query[PATH_MAX] = "";
-    static char buffer[256] = "";
+    char command_buffer[PATH_MAX] = "";
+    char query[PATH_MAX] = "";
+    char buffer[256] = "";
     size_t current_pos = 0;
     size_t prev_pos = 0;
     FILE *fpipe;
-    // FILE *test = fopen("./test.txt", "w");
+    //FILE *test = fopen("./test.txt", "w");
     strcpy(query, "'");
 
     while (1) {
@@ -100,7 +100,7 @@ FILE *get_query_result_file(char *restrict path) {
 
     // fputs("\n", test);
     // fputs(command_buffer, test);
-    // fclose(test);
+     //fclose(test);
     if (0 == (fpipe = (FILE *)popen(command_buffer, "r")))
     {
         perror("popen() failed");

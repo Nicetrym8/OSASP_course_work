@@ -67,7 +67,9 @@ name (\"[^\"]+\")
     if(token[0] != 0 && !size_flag){
         strcat(output, "-o ");
     }
-
+    else if(token[0] != 0 && size_flag){
+        strcat(output, "-and ");
+    }
     else strcat(output,"\\( ");
     sprintf(token,"%s %s ",current_field, yytext);
     strcat(output,token);
