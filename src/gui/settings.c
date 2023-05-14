@@ -12,34 +12,103 @@ static FORM *settings_form = NULL;
 static size_t current_setting = 0;
 static screen_size prev_size;
 
+/**
+ * @brief Очистка выделенных ресурсов
+ *
+ */
 static void cleanup();
+
+/**
+ * @brief Обработчик события изменения размера окна параметров
+ *
+ */
 static void on_settings_resize_handler();
+
+/**
+ * @brief Обработчик события выхода в основное окно
+ *
+ */
 static void on_settings_exit_handler();
+
+/**
+ * @brief Обработчик события переключения на следующее поле в форме
+ *
+ */
 static void on_settings_next_field();
+
+/**
+ * @brief Порядок отрисовки окна параметров
+ *
+ */
 static void settings_refresher_handler();
+
+/**
+ * @brief Отрисовать окно параметров
+ *
+ */
 static void render_settings();
+
+/**
+ * @brief Обработчик события переключения на предыдущее поле
+ *
+ */
 static void on_settings_prev_field();
+
+/**
+ * @brief Обработчик события удаления символа из поля
+ *
+ */
 static void on_settings_del_char_handler();
+
+/**
+ * @brief Переход на точку входа в цикл событий окна "О программе"
+ *
+ */
 static void on_about_handler();
+
+/**
+ * @brief Обработчик событий флажков
+ *
+ */
 static void on_checkbox_handler();
+
+/**
+ * @brief Обновить буфер полей
+ *
+ */
 static void update_field_buffer();
+
+/**
+ * @brief Обработчик перехода курсора внутри поля вправо
+ *
+ */
 static void on_settings_scroll_right();
+
+/**
+ * @brief Обработчик перехода курсора внутри поля влево
+ *
+ */
 static void on_settings_scroll_left();
+
+/*Структура буфера параметров*/
 typedef struct buffer_settings {
     const PARAMETR flag;
     const char *ui_name;
     char *field_buffer;
 }buffer_settings;
+/*Структура буфера флажков*/
 typedef struct buffer_checkbox {
     const CHECKBOXES flag;
     const char *ui_name;
     bool *checked;
 }buffer_checkbox;
+/*Привязка флажков к системной части*/
 static buffer_checkbox checkboxes[] = {
     {TYPE_F,FILE_TYPE_GUI,&checkbox[TYPE_F]},
     {TYPE_D,DIR_TYPE_GUI,&checkbox[TYPE_D]},
     {TYPE_L,SYMLINK_TYPE_GUI,&checkbox[TYPE_L]},
 };
+/*Привязка параметров к системной части*/
 static buffer_settings fields_buffer[] = {
    {NAME,NAME_GUI,preferences[get_index_by_param(NAME)]},
    {GROUP,GROUP_GUI,preferences[get_index_by_param(GROUP)]},
@@ -61,9 +130,9 @@ static const key_handler SETTINGS_CONTROL_KEYS_HANDLERS[] = {
     {KEY_BACKSPACE,on_settings_del_char_handler},
     {ENTER_KEY,on_checkbox_handler},
 };
+/*Очередь отрисовки*/
 static const render_routes SETTINGS_RENDER_LIST[] = {
     render_key_map,
-    //render_settings_window,
     render_settings,
 };
 
@@ -93,21 +162,27 @@ static void update_field_buffer() {
 
 }
 static void on_settings_scroll_right() {
-    form_driver(settings_form, REQ_NEXT_CHAR);
-    curs_set(1);
-    wrefresh(settings_form_win);
+    if (current_setting < ARRAY_SIZE(settings_field) - 1) {
+        form_driver(settings_form, REQ_NEXT_CHAR);
+        curs_set(1);
+        wrefresh(settings_form_win);
+    }
 }
 static void on_settings_scroll_left() {
-    form_driver(settings_form, REQ_PREV_CHAR);
-    curs_set(1);
-    wrefresh(settings_form_win);
+    if (current_setting < ARRAY_SIZE(settings_field) - 1) {
+        form_driver(settings_form, REQ_PREV_CHAR);
+        curs_set(1);
+        wrefresh(settings_form_win);
+    }
 }
 static void on_settings_del_char_handler() {
-    form_driver(settings_form, REQ_DEL_PREV);
-    form_driver(settings_form, REQ_VALIDATION);
-    update_field_buffer();
-    curs_set(1);
-    wrefresh(settings_form_win);
+    if (current_setting < ARRAY_SIZE(settings_field) - 1) {
+        form_driver(settings_form, REQ_DEL_PREV);
+        form_driver(settings_form, REQ_VALIDATION);
+        update_field_buffer();
+        curs_set(1);
+        wrefresh(settings_form_win);
+    }
 }
 static void on_about_handler() {
     cleanup();
@@ -122,22 +197,14 @@ static void on_checkbox_handler() {
 }
 static void on_settings_next_field() {
     if (current_setting < ARRAY_SIZE(settings_field) - 2 + ARRAY_SIZE(checkboxes)) {
-
         current_setting++;
         render_settings();
-        // form_driver(settings_form, REQ_NEXT_FIELD);
-         //  form_driver(settings_form, REQ_NEXT_FIELD);
-         //  form_driver(settings_form, REQ_END_LINE);
-
     }
 }
 static void on_settings_prev_field() {
     if (current_setting > 0) {
         current_setting--;
         render_settings();
-        // form_driver(settings_form, REQ_PREV_FIELD);
-        // form_driver(settings_form, REQ_END_LINE);
-
     }
 }
 static void settings_refresher_handler() {
@@ -157,7 +224,6 @@ static void render_settings() {
         wbkgd(box_win, COLOR_PAIR(3));
         wrefresh(box_win);
     }
-    //cleanup();
     if (settings_form_win == NULL) {
         settings_form_win = newpad((int)(ARRAY_SIZE(settings_field) + ARRAY_SIZE(checkboxes)), scr_size.max_x - 2);
         wbkgd(settings_form_win, COLOR_PAIR(3));

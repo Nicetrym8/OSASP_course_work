@@ -23,6 +23,8 @@ Is complete: true
         Building into separate directory +
         Reformat project structure +
         GUI: Handle checkboxes values, or scrap this idea. +
-25.05 TODO:
-        Description, paperwork and figures +-
+15.05 TODO:
+        Description, paperwork and figures +
+DONE!
+
 

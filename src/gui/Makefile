@@ -1,14 +1,14 @@
 SHELL:=bash
 CC=gcc
-CFLAGS=-W -Wall -Wno-unused-parameter -Wno-unused-variable -std=c11 -O3 -pedantic -lncurses -lform
+CFLAGS=-W -Wall -Wno-unused-parameter -Wno-unused-variable -std=c11 -O3 -pedantic -lncurses -lform -c
 OUTFILES= 
 
 all: ../../build/about.o ../../build/main_screen.o ../../build/settings.o
 
 ../../build/about.o: about.c about.h Makefile
-	$(CC) $(CFLAGS) about.c -g -c -o ../../build/about.o
+	$(CC) $(CFLAGS) about.c  -o ../../build/about.o
 ../../build/main_screen.o: main_screen.c main_screen.h Makefile
-	$(CC) $(CFLAGS) main_screen.c -g -c -o ../../build/main_screen.o
+	$(CC) $(CFLAGS) main_screen.c  -o ../../build/main_screen.o
 ../../build/settings.o: settings.c settings.h Makefile
-	$(CC) $(CFLAGS) settings.c -g -c -o ../../build/settings.o
+	$(CC) $(CFLAGS) settings.c  -o ../../build/settings.o
 	

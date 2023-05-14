@@ -4,16 +4,37 @@ extern int ch;
 extern screen_size scr_size;
 extern bool exit_flag;
 static WINDOW *box_win = NULL;
+/**
+ * @brief Обработчик отрисовки окна "О программе"
+ *
+ */
 static void render_about_window();
+
+/**
+ * @brief Обработчик события изменения размера окна
+ *
+ */
 static void on_about_resize_handler();
+
+/**
+ * @brief Обработчик события выхода в основное окно
+ *
+ */
 static void on_about_exit_handler();
+
+/**
+ * @brief Порядок отрисовки окна "О программе"
+ *
+ */
 static void about_refresher_handler();
 
+/*Закрепление обработчиков за конкретными событиями(клавишами)*/
 static const key_handler ABOUT_CONTROL_KEYS_HANDLERS[] = {
     {KEY_RESIZE, on_about_resize_handler},
     {KEY_F(3), on_about_exit_handler},
     {KEY_F(1),settings}
 };
+/*Констатный массив очереди отрисовки*/
 static const render_routes ABOUT_RENDER_LIST[] = {
     render_key_map,
     render_about_window,

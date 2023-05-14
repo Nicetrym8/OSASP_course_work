@@ -1,26 +1,104 @@
 #include "main_screen.h"
 
 
-/*****************SETTINGS********************/
 
+/**
+ * @brief Инициализация форм
+ *
+ */
 static void init_form();
+
+/**
+ * @brief Очистка выделенных ресурсов
+ *
+ */
 static void cleanup();
+
+/**
+ * @brief Завершающая рутина
+ *
+ */
 static void exit_route();
+
+/**
+ * @brief Обработчик удаления символа в форме
+ *
+ */
 static void on_del_char_handler();
+
+/**
+ * @brief Обработчик изменения размера основного окна
+ *
+ */
 static void on_resize_handler();
+
+/**
+ * @brief Обработчик нажатия клавиши KEY_DOWN
+ *
+ */
 static void on_key_down_handler();
+
+/**
+ * @brief Обработчик нажатия клавиши KEY_UP
+ *
+ */
 static void on_key_up_handler();
+
+/**
+ * @brief Обработчик события перехода к окну "О программе"
+ *
+ */
 static void on_about_handler();
+/**
+ * @brief Отрисовать строку поиска
+ *
+ */
 static void render_search_bar();
+
+/**
+ * @brief Предварительная инициализация основного окна
+ *
+ */
 static void main_window_gui_init();
+
+/**
+ * @brief Обработчик события подтверждения ввода в строку поиска
+ *
+ */
 static void on_submit_handler();
+
+/**
+ * @brief Порядок отрисовки
+ *
+ */
 static void refresher_handler();
+
+/**
+ * @brief Отрисовать основное окно
+ *
+ */
 static void render_main_window();
+
+/**
+ * @brief Обработчик события перехода к окну параметров
+ *
+ */
 static void on_settings_handler();
+
+/**
+ * @brief Обработчик нажатия клавиши KEY_RIGHT
+ *
+ */
 static void on_scroll_right();
+
+/**
+ * @brief Обработчик нажатия клавиши KEY_LEFT
+ *
+ */
 static void on_scroll_left();
 
 
+/*Закрепление обработчиков за конкретными событиями(клавишами)*/
 static const key_handler CONTROL_KEYS_HANDLERS_LIST[] = {
    {KEY_F(3),exit_route},
    {KEY_F(2), on_about_handler},
@@ -33,24 +111,26 @@ static const key_handler CONTROL_KEYS_HANDLERS_LIST[] = {
    {KEY_RIGHT,on_scroll_right},
    {KEY_LEFT,on_scroll_left},
 };
+/*Констатный массив очереди отрисовки*/
 static const render_routes RENDER_LIST[] = {
     render_search_bar,
     render_main_window,
     render_key_map,
 };
-/*****************END SETTINGS******************/
+
 extern int ch;
 extern screen_size scr_size;
-static FIELD* field[2];
-static FORM* search_form = NULL;
-static WINDOW* search_form_win = NULL;
+static FIELD *field[2];
+static FORM *search_form = NULL;
+static WINDOW *search_form_win = NULL;
 static buf_t last_request;
 static int current_pos;
-static FILE* fpipe = NULL;
+static FILE *fpipe = NULL;
 static int total_lines;
 
+//Пользовательские параметры
 extern char preferences[PARAM_QUANTITY][PATH_MAX];
-//
+
 
 void render_main_window_gui() {
     main_window_gui_init();
@@ -181,8 +261,8 @@ static void render_search_bar() {
 static void render_main_window() {
 
     static buf_t buf;
-    static WINDOW* main_pad = NULL;
-    WINDOW* box_win = NULL;
+    static WINDOW *main_pad = NULL;
+    WINDOW *box_win = NULL;
     size_t i = 0;
     screen_size current_box_size;
     if (main_pad == NULL) {

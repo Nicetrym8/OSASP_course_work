@@ -8,5 +8,9 @@
 #include "../executor/executor.h"
 #include "about.h"
 
+/**
+ * @brief Основная точка входа в цикл событий программы
+ *
+ */
 void render_main_window_gui();
 #endif

@@ -1,22 +1,22 @@
 #makefile
 CC=gcc
-CFLAGS=-W -Wall -Wno-unused-parameter -Wno-unused-variable -std=c11 -O3 -pedantic -lncurses -lform -fsanitize=address,leak,undefined
+CFLAGS=-W -Wall -Wno-unused-parameter -Wno-unused-variable -std=c11 -O3 -pedantic -lncurses -lform 
 SHELL:=bash
 SUBDIRS=./src/executor/ ./src/gui ./src/utility
 COMPILE_LIST=./build/*.o
 PARSER_PATH=./src/parser
 
-.PHONY:clean,pack, build_dep $(SUBDIRS)
+.PHONY:clean,pack, $(SUBDIRS)
 
 
 all: ./build/main ./build/parser 
 
-build_dep: $(SUBDIRS)
+./build/*.o: $(SUBDIRS)
 
 $(SUBDIRS):
 	mkdir -p ./build
 	$(MAKE) -C $@
-./build/main: ./src/main.c $(SUBDIRS)  Makefile
+./build/main: ./src/main.c ./build/*.o  Makefile
 	$(CC) $(CFLAGS) $(COMPILE_LIST) ./src/main.c  -o ./build/main
 ./build/parser: $(PARSER_PATH)/parser.l
 	cd $(PARSER_PATH) && $(MAKE)

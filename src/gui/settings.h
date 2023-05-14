@@ -5,5 +5,9 @@
 #include "about.h"
 #include <form.h>
 
+/**
+ * @brief Точка входа в цикл событий окна параметров
+ *
+ */
 void settings();
 #endif

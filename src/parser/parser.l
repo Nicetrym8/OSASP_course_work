@@ -1,6 +1,4 @@
-/*** Definition Section has one variable
-which can be accessed inside yylex()
-and main() ***/
+
 %{
 
 #include <linux/limits.h>
@@ -27,7 +25,7 @@ name (\"[^\"]+\")
 "&" {
     size_flag=0;
     if(first_flag){
-         if(braces_flag)strcat(output,"\\) ");
+        if(braces_flag)strcat(output,"\\) ");
         strcpy(current_operation,"-and ");
     }
    
@@ -79,19 +77,9 @@ name (\"[^\"]+\")
  
 int yywrap(){}
 int main(int argc, char** argv){
- 
-
-// yywrap() - wraps the above rule section
-/* yyin - takes the file pointer
-          which contains the input*/
-/* yylex() - this is the main flex function
-          which runs the Rule Section*/
-// yytext is the text in the buffer
- 
-
-yy_scan_string(argv[1]);
-yylex();
-if(braces_flag)strcat(output,"\\) ");
-printf("%s", output);
-return 0;
+    yy_scan_string(argv[1]);
+    yylex();
+    if(braces_flag)strcat(output,"\\) ");
+    printf("%s", output);
+    return 0;
 }

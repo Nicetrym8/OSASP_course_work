@@ -73,7 +73,16 @@ typedef struct control_struct {
     parametr options[PARAM_QUANTITY];
 }control_struct;
 
+/**
+ * @brief Записать параметры в файл
+ *
+ */
 void write_settings();
+
+/**
+ * @brief Считать параметры из файла
+ *
+ */
 void read_settings();
 
 
