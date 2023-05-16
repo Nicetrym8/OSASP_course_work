@@ -1,7 +1,6 @@
 #ifndef CONFIG_H
 #define CONFIG_H
 
-
 #define TITLE "find CURSES"
 #define VERSION "v1.0"
 #define DESCRIPTION "Данная программа представляет собой простую оболочку над утилитой find. Разработана Nicetrym8, как курсовая работа по дисциплине ОСиСП. Распространяется по лицензии MIT (https://mit-license.org/). Copyright (c) 2023 Nicetrym8."
