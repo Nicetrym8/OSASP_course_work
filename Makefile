@@ -1,6 +1,6 @@
 #makefile
 CC=gcc
-CFLAGS=-W -Wall -Wno-unused-parameter -Wno-unused-variable -std=c11 -O3 -pedantic -lncurses -lform 
+CFLAGS=-W -Wall -Wno-unused-parameter -Wno-unused-variable -Werror -std=c11 -O3 -pedantic -lncurses -lform  
 SHELL:=bash
 SUBDIRS=./src/executor/ ./src/gui ./src/utility
 COMPILE_LIST=./build/*.o
@@ -16,7 +16,7 @@ all: ./build/main ./build/parser
 $(SUBDIRS):
 	mkdir -p ./build
 	$(MAKE) -C $@
-./build/main: ./src/main.c ./build/*.o  Makefile
+./build/main: ./src/main.c ./src/config.h ./build/*.o  Makefile
 	$(CC) $(CFLAGS) $(COMPILE_LIST) ./src/main.c  -o ./build/main
 ./build/parser: $(PARSER_PATH)/parser.l
 	cd $(PARSER_PATH) && $(MAKE)
