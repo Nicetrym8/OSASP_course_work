@@ -72,7 +72,6 @@ FILE *get_query_result_file(char *restrict path) {
     size_t current_pos = 0;
     size_t prev_pos = 0;
     FILE *fpipe;
-    //FILE *test = fopen("./test.txt", "w");
     strcpy(query, "'");
 
     while (1) {
@@ -93,14 +92,10 @@ FILE *get_query_result_file(char *restrict path) {
         current_pos++;
     }
     strcat(query, "'");
-    // fputs(query, test);
 
 
     create_exec_str(command_buffer, path, query);
 
-    // fputs("\n", test);
-    // fputs(command_buffer, test);
-     //fclose(test);
     if (0 == (fpipe = (FILE *)popen(command_buffer, "r")))
     {
         perror("popen() failed");

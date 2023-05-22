@@ -85,7 +85,6 @@ void write_settings();
  */
 void read_settings();
 
-
 /**
  * @brief Создать строку вызова find
  *
@@ -93,6 +92,7 @@ void read_settings();
  * @param path: путь для find
  */
 void create_exec_str(char *restrict buf, char *restrict path, char *restrict query);
+
 /**
  * @brief Получить результирующий файл
  * @param path: путь для find

@@ -19,8 +19,8 @@ typedef struct screen_size {
 }screen_size;
 
 typedef struct toolbar {
-    const char* name;
-    const char* key_name;
+    const char *name;
+    const char *key_name;
 }toolbar;
 
 typedef char buf_t[PATH_MAX];
@@ -31,7 +31,25 @@ typedef struct key_handler {
     event_handler handler;
 }key_handler;
 
-void default_key_handler(const key_handler* restrict control_key_handlers, size_t size);
-char* trimwhitespace(char* str);
+/**
+ * @brief Основной обработчки событий клавиатуры
+ *
+ * @param control_key_handlers: массив обработчиков
+ * @param size: размер массива
+ */
+void default_key_handler(const key_handler *restrict control_key_handlers, size_t size);
+
+/**
+ * @brief Функция удаления пробельных символов из строки
+ *
+ * @param str: строка
+ * @return char* - возвращает указатель на нее же
+ */
+char *trimwhitespace(char *str);
+
+/**
+ * @brief Функция отрисовки подсказки с клавишами внизу окна
+ *
+ */
 void render_key_map();
 #endif
